@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Campanhas - Q4 2025</title>
+    <meta name="description" content="Dashboard profissional de análise de campanhas Q4 2025 - Natcofarma">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Dashboard Campanhas Q4 2025 - Natcofarma</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -17,6 +25,7 @@
             min-height: 100vh;
             padding: 20px;
             color: #f1f5f9;
+            background-attachment: fixed;
         }
 
         .container {
@@ -26,6 +35,18 @@
 
         header {
             margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         header h1 {
@@ -56,17 +77,20 @@
             cursor: pointer;
             font-size: 13px;
             transition: all 150ms ease;
+            font-weight: 500;
         }
 
         .filter-btn:hover {
             background: #334155;
             border-color: #38bdf8;
+            transform: translateY(-2px);
         }
 
         .filter-btn.active {
             background: #38bdf8;
             color: #0f172a;
             border-color: #38bdf8;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
         .kpi-grid {
@@ -82,11 +106,13 @@
             border-radius: 8px;
             padding: 20px;
             transition: all 200ms ease;
+            backdrop-filter: blur(10px);
         }
 
         .kpi-card:hover {
             border-color: #38bdf8;
             box-shadow: 0 8px 16px rgba(56, 189, 248, 0.1);
+            transform: translateY(-4px);
         }
 
         .kpi-label {
@@ -122,6 +148,7 @@
             border: 1px solid #334155;
             border-radius: 8px;
             padding: 20px;
+            backdrop-filter: blur(10px);
         }
 
         .chart-title {
@@ -160,6 +187,7 @@
         .bar:hover {
             opacity: 0.8;
             box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+            filter: brightness(1.1);
         }
 
         .bar-label {
@@ -199,6 +227,11 @@
             font-size: 12px;
             font-weight: 600;
             color: #0f172a;
+            transition: all 150ms ease;
+        }
+
+        .funnel-bar:hover {
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
         .funnel-label {
@@ -213,6 +246,8 @@
             border: 1px solid #334155;
             border-radius: 8px;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin-bottom: 24px;
         }
 
         .table-header {
@@ -222,6 +257,7 @@
             text-transform: uppercase;
             color: #f1f5f9;
             letter-spacing: 0.5px;
+            background: rgba(56, 189, 248, 0.05);
         }
 
         table {
@@ -300,35 +336,6 @@
             color: #38bdf8;
         }
 
-        .legend {
-            display: flex;
-            gap: 24px;
-            margin-top: 16px;
-            font-size: 12px;
-            color: #94a3b8;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 2px;
-        }
-
-        .legend-email {
-            background: #3b82f6;
-        }
-
-        .legend-whatsapp {
-            background: #22c55e;
-        }
-
         .insights {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -341,6 +348,13 @@
             border-left: 3px solid #38bdf8;
             border-radius: 6px;
             padding: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 200ms ease;
+        }
+
+        .insight-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
         }
 
         .insight-title {
@@ -362,6 +376,49 @@
             font-size: 12px;
             color: #94a3b8;
             margin-top: 4px;
+        }
+
+        .insights-box {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #38bdf8;
+            backdrop-filter: blur(10px);
+        }
+
+        .insights-box p {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .insights-box strong {
+            color: #38bdf8;
+        }
+
+        .insights-box ul {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-left: 20px;
+            line-height: 1.6;
+        }
+
+        .insights-box li {
+            margin-bottom: 8px;
+        }
+
+        .insights-box li strong {
+            color: #f1f5f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 12px;
         }
 
         @media (max-width: 768px) {
@@ -388,11 +445,28 @@
             th, td {
                 padding: 8px 12px;
             }
+
+            .filters {
+                flex-direction: row;
+            }
+
+            .filter-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
         }
 
         @media (max-width: 480px) {
             .kpi-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .kpi-card {
+                padding: 16px;
+            }
+
+            .kpi-value {
+                font-size: 20px;
             }
 
             .chart {
@@ -401,10 +475,44 @@
 
             .filters {
                 flex-direction: column;
+                gap: 8px;
             }
 
             .filter-btn {
                 width: 100%;
+                font-size: 12px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header p {
+                font-size: 12px;
+            }
+
+            .chart-title {
+                font-size: 12px;
+            }
+
+            .insight-card {
+                padding: 12px;
+            }
+
+            .insight-value {
+                font-size: 16px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .filter-btn {
+                display: none;
             }
         }
     </style>
@@ -642,17 +750,19 @@
             </table>
         </div>
 
-        <div style="margin-top: 24px; padding: 16px; background: rgba(56, 189, 248, 0.1); border-radius: 8px; border-left: 3px solid #38bdf8;">
-            <p style="font-size: 13px; color: #cbd5e1; margin-bottom: 8px;">
-                <strong style="color: #38bdf8;">💡 Insights Principais:</strong>
-            </p>
-            <ul style="font-size: 13px; color: #cbd5e1; margin-left: 20px; line-height: 1.6;">
+        <div class="insights-box">
+            <p><strong>💡 Insights Principais:</strong></p>
+            <ul>
                 <li><strong>Desempenho por Mês:</strong> Novembro teve a melhor taxa de leitura (47%), enquanto dezembro teve o maior volume (66.3K planejados).</li>
                 <li><strong>Performance de Canais:</strong> Email apresenta melhor taxa de entrega (85.6% em dezembro), mas WhatsApp tem melhor engajamento de leitura no mês (48.6% em novembro).</li>
                 <li><strong>Funil de Conversão:</strong> Taxa de entrega (82.6%) é forte, porém apenas 28.8% leem, indicando oportunidade de otimização de conteúdo e horários de envio.</li>
                 <li><strong>Conversão Final:</strong> 3.1% de visitação em relação aos entregues sugere necessidade de melhorar chamadas para ação (CTA) e relevância das campanhas.</li>
             </ul>
         </div>
+
+        <footer>
+            <p>Dashboard de Campanhas Q4 2025 © 2025 Natcofarma | Hospedado via GitHub Pages</p>
+        </footer>
     </div>
 
     <script>
@@ -687,6 +797,13 @@
                 }, index * 50);
             });
         });
+
+        // Prefetch para performance
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                // Código para carregar recursos em background
+            });
+        }
     </script>
 </body>
 </html>
